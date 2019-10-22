@@ -1,0 +1,53 @@
+﻿@model IEnumerable<InventoryManager.Entities.ViewModels.GarmentViewModel>
+@using InventoryManager.Entities.BindingModels
+
+@{
+    ViewBag.Title = "Landing Page";
+}
+
+<h2>Landing Page</h2>
+
+<div>
+    @Html.Partial("Search", new SearchGarmentBindingModel())
+</div>
+
+<h4>Products</h4>
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Name", "LandingPage", new { sortOrder = ViewBag.NameSortParam })
+        </th>
+        <th>
+            @Html.ActionLink("Type", "LandingPage", new { sortOrder = ViewBag.TypeSortParam })
+        </th>
+        <th>
+            @Html.ActionLink("Quantity", "LandingPage", new { sortOrder = ViewBag.QuantitySortParam })
+        </th>
+        <th>
+            @Html.ActionLink("Price", "LandingPage", new { sortOrder = ViewBag.PriceSortParam })
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr onclick="location.href = '@Url.Action("Details", "Garment", new { id = item.Id })'">
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+    </tr>
+}
+
+</table>
+
+<p>
+    @Html.ActionLink("Add New", "Create", "Garment") |
+    @Html.ActionLink("Back to List", "LandingPage", "Home")
+</p>
